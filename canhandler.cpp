@@ -3,8 +3,6 @@
 CanHandler::CanHandler(QObject *parent)
     : QObject{parent}
 {
-
-
     this -> startCAN();
 
     QTimer *timer  = new QTimer(this);
@@ -14,6 +12,26 @@ CanHandler::CanHandler(QObject *parent)
     QTimer *timer2  = new QTimer(this);
     connect(timer2, &QTimer::timeout,this, &CanHandler::sendLoCellVoltage);
     timer2->start(1000);
+
+    QTimer *timer3  = new QTimer(this);
+    connect(timer3, &QTimer::timeout,this, &CanHandler::sendChargerTemp);
+    timer3->start(1000);
+
+    QTimer *timer4  = new QTimer(this);
+    connect(timer4, &QTimer::timeout,this, &CanHandler::sendChargerVoltage);
+    timer4->start(1000);
+
+    QTimer *timer5  = new QTimer(this);
+    connect(timer5, &QTimer::timeout,this, &CanHandler::sendChargerCurrent);
+    timer5->start(1000);
+
+    QTimer *timer6 = new QTimer(this);
+    connect(timer6, &QTimer::timeout,this, &CanHandler::sendChargerInVoltage);
+    timer6->start(1000);
+
+    QTimer *timer7 = new QTimer(this);
+    connect(timer7, &QTimer::timeout, this, &CanHandler::sendChargerInCurrent);
+    timer7->start(1000);
 
 }
 
@@ -96,13 +114,6 @@ uint16_t CanHandler::calculateCRC16(QByteArray data, CRC16Type crc16Type)
     }
 
     return crc ^ final;
-}
-
-void CanHandler::setLowCellVoltage(QString low_cell)
-{
-
-    lowCellVoltage = low_cell;
-
 }
 
 void CanHandler::sendHiCellVoltage()
@@ -194,17 +205,228 @@ void CanHandler::sendLoCellVoltage()
 
 }
 
-void CanHandler::setHighCellVoltage(QString high_cell)
+void CanHandler::sendChargerTemp()
 {
 
-    highCellVoltage = high_cell;
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":4,"v":%1})";
+
+    QString modified_string = string_message.arg(chargerTemp);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingChargerTemp){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
 
 }
+
+void CanHandler::sendChargerVoltage()
+{
+
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":5,"v":%1})";
+
+    QString modified_string = string_message.arg(chargerVoltage);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingChargerVoltage){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
+
+}
+
+
+
+
+void CanHandler::sendChargerCurrent()
+{
+
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":6,"v":%1})";
+
+    QString modified_string = string_message.arg(chargerCurrent);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingChargerCurrent){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
+
+}
+
+void CanHandler::sendChargerInVoltage()
+{
+
+    //{"cmd":"svv","sid":1,"vid":1,"iid":0,"v":1234} example of data with instance
+
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})";
+
+    QString modified_string = string_message.arg(chargerInVoltageInstance).arg(chargerInVoltage);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingChargerInVoltage){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
+
+}
+
+void CanHandler::sendChargerInCurrent()
+{
+
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":8,"iid":%1,"v":%2})";
+
+    QString modified_string = string_message.arg(chargerInCurrentInstance).arg(chargerInCurrent);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingChargerInCurrent){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
+
+}
+
 
 void CanHandler::toggleLoCellVoltageSend()
 {
 
     areWeSendingLoCellVoltage = !areWeSendingLoCellVoltage;
+
+}
+
+void CanHandler::toggleChargerTempSend()
+{
+
+    areWeSendingChargerTemp = !areWeSendingChargerTemp;
 
 }
 

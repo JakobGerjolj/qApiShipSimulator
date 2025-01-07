@@ -37,13 +37,31 @@ public:
 
 
 
-    void setLowCellVoltage(QString low_cell);
+    void setLowCellVoltage(QString low_cell){ lowCellVoltage = low_cell;}
 
-    void setHighCellVoltage(QString high_cell);
+    void setHighCellVoltage(QString high_cell){ highCellVoltage = high_cell;}
+
+    void setChargerTemp(QString charger_temp){ chargerTemp = charger_temp;}
+
+    void setChargerVoltage(QString voltage){ chargerVoltage = voltage;}
+
+    void setChargerCurrent(QString current){ chargerCurrent = current;}
+
+    void setChargerInVoltage(QString voltage){ chargerInVoltage = voltage;}
+
+    void setChargerInInstance(QString instance){ chargerInVoltageInstance = instance;}
+
+    void setChargerInCurrent(QString current){ chargerInCurrent = current;}
+
+    void setChargerInCurrentInstance(QString instance){ chargerInCurrentInstance = instance;}
 
     void toggleHiCellVoltageSend();
     void toggleLoCellVoltageSend();
-
+    void toggleChargerTempSend();
+    void toggleChargerVoltageSend(){ areWeSendingChargerVoltage = !areWeSendingChargerVoltage; }
+    void toggleChargerCurrentSend(){ areWeSendingChargerCurrent = !areWeSendingChargerCurrent; }
+    void toggleChargerInVoltageSend(){ areWeSendingChargerInVoltage  = !areWeSendingChargerInVoltage; }
+    void toggleChargerInCurrent(){ areWeSendingChargerInCurrent = !areWeSendingChargerInCurrent; }
 
 signals:
 
@@ -56,14 +74,22 @@ private:
 
     void sendHiCellVoltage();
     void sendLoCellVoltage();
-
-
+    void sendChargerTemp();
+    void sendChargerVoltage();
+    void sendChargerCurrent();
+    void sendChargerInVoltage();
+    void sendChargerInCurrent();
 
 private:
     QSerialPort* port;
 
     bool areWeSendinHiCellVoltage{false};
     bool areWeSendingLoCellVoltage{false};
+    bool areWeSendingChargerTemp{false};
+    bool areWeSendingChargerVoltage{false};
+    bool areWeSendingChargerCurrent{false};
+    bool areWeSendingChargerInVoltage{false};
+    bool areWeSendingChargerInCurrent{false};
 
     uint8_t message_id = 0x19;
 
@@ -72,6 +98,13 @@ private:
     QString lowCellVoltage{"0"};
     QString highCellVoltage{"0"};
 
+    QString chargerTemp{"0"};
+    QString chargerVoltage{"0"};
+    QString chargerCurrent{"0"};
+    QString chargerInVoltage{"0"};
+    QString chargerInVoltageInstance{"0"};
+    QString chargerInCurrent{"0"};
+    QString chargerInCurrentInstance{"0"};
 
 };
 
