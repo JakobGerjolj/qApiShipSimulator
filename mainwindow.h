@@ -61,6 +61,26 @@ private slots:
 
     void on_speedSlider_22_sliderMoved(int position);
 
+    void on_pushButton_18_clicked();
+
+    void on_radioButton_7_clicked();
+
+    void on_radioButton_8_clicked();
+
+    void on_radioButton_9_clicked();
+
+    void on_radioButton_13_clicked();
+
+    void on_pushButton_19_clicked();
+
+    void on_radioButton_14_clicked();
+
+    void on_radioButton_15_clicked();
+
+    void on_radioButton_16_clicked();
+
+    void on_radioButton_17_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -71,6 +91,8 @@ private:
     bool areWeSendingChargerCurrent{false};
     bool areWeSendingInVoltage{false};
     bool areWeSendingInCurrent{false};
+    bool areWeSendingPortMotorStatus{false};
+    bool areWeSendingBatteryStatus{false};
 
     CanHandler* m_CanHandler;
 };

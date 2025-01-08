@@ -33,6 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui -> PortBatInfoLabel_8 -> setText("Not sending messages");
     ui -> PortBatInfoLabel_8 -> setStyleSheet("QLabel { background-color : red; }");
 
+    ui -> PortBatInfoLabel_9 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_9 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_10 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_10 -> setStyleSheet("QLabel { background-color : red; }");
+
 }
 
 MainWindow::~MainWindow()
@@ -281,6 +287,108 @@ void MainWindow::on_speedSlider_22_sliderMoved(int position)
 {
 
     m_CanHandler -> setChargerInCurrent(QString::number(position));
+
+}
+
+
+void MainWindow::on_pushButton_18_clicked()
+{
+
+    m_CanHandler -> togglePortMotor();
+
+    if(!areWeSendingPortMotorStatus){
+        areWeSendingPortMotorStatus = true;
+        ui -> PortBatInfoLabel_9 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_9 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingPortMotorStatus = false;
+        ui -> PortBatInfoLabel_9 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_9 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+void MainWindow::on_radioButton_7_clicked()
+{
+
+    m_CanHandler -> setPortMotorStatus("0");
+
+}
+
+void MainWindow::on_radioButton_8_clicked()
+{
+
+    m_CanHandler -> setPortMotorStatus("1");
+
+}
+
+void MainWindow::on_radioButton_9_clicked()
+{
+
+    m_CanHandler -> setPortMotorStatus("2");
+
+}
+
+
+void MainWindow::on_radioButton_13_clicked()
+{
+
+    m_CanHandler -> setPortMotorStatus("3");
+
+}
+
+
+void MainWindow::on_pushButton_19_clicked()
+{
+
+
+    m_CanHandler -> toggleBatteryS();
+
+    if(!areWeSendingBatteryStatus){
+        areWeSendingBatteryStatus = true;
+        ui -> PortBatInfoLabel_10 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_10 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingBatteryStatus = false;
+        ui -> PortBatInfoLabel_10 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_10 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_radioButton_14_clicked()
+{
+
+    m_CanHandler -> setBatteryStatus("0");
+
+}
+
+
+void MainWindow::on_radioButton_15_clicked()
+{
+
+    m_CanHandler -> setBatteryStatus("1");
+
+}
+
+
+void MainWindow::on_radioButton_16_clicked()
+{
+
+    m_CanHandler -> setBatteryStatus("2");
+
+}
+
+
+void MainWindow::on_radioButton_17_clicked()
+{
+
+    m_CanHandler -> setBatteryStatus("3");
 
 }
 

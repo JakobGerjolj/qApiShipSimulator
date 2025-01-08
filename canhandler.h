@@ -55,6 +55,10 @@ public:
 
     void setChargerInCurrentInstance(QString instance){ chargerInCurrentInstance = instance;}
 
+    void setPortMotorStatus(QString status){ portMotorStatus = status;}
+
+    void setBatteryStatus(QString status){ batteryStatus = status;}
+
     void toggleHiCellVoltageSend();
     void toggleLoCellVoltageSend();
     void toggleChargerTempSend();
@@ -62,6 +66,8 @@ public:
     void toggleChargerCurrentSend(){ areWeSendingChargerCurrent = !areWeSendingChargerCurrent; }
     void toggleChargerInVoltageSend(){ areWeSendingChargerInVoltage  = !areWeSendingChargerInVoltage; }
     void toggleChargerInCurrent(){ areWeSendingChargerInCurrent = !areWeSendingChargerInCurrent; }
+    void togglePortMotor(){ areWeSendingPortMotorStatus = !areWeSendingPortMotorStatus; }
+    void toggleBatteryS(){ areWeSendingBatteryStatus = !areWeSendingBatteryStatus; }
 
 signals:
 
@@ -79,6 +85,8 @@ private:
     void sendChargerCurrent();
     void sendChargerInVoltage();
     void sendChargerInCurrent();
+    void sendPortMotorStatus();
+    void sendBatteryStatus();
 
 private:
     QSerialPort* port;
@@ -90,6 +98,8 @@ private:
     bool areWeSendingChargerCurrent{false};
     bool areWeSendingChargerInVoltage{false};
     bool areWeSendingChargerInCurrent{false};
+    bool areWeSendingPortMotorStatus{false};
+    bool areWeSendingBatteryStatus{false};
 
     uint8_t message_id = 0x19;
 
@@ -105,6 +115,8 @@ private:
     QString chargerInVoltageInstance{"0"};
     QString chargerInCurrent{"0"};
     QString chargerInCurrentInstance{"0"};
+    QString portMotorStatus{"0"};
+    QString batteryStatus{"0"};
 
 };
 

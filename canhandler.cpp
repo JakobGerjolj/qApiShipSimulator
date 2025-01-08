@@ -33,6 +33,14 @@ CanHandler::CanHandler(QObject *parent)
     connect(timer7, &QTimer::timeout, this, &CanHandler::sendChargerInCurrent);
     timer7->start(1000);
 
+    QTimer *timer8 = new QTimer(this);
+    connect(timer8, &QTimer::timeout, this, &CanHandler::sendPortMotorStatus);
+    timer8->start(1000);
+
+    QTimer *timer9 = new QTimer(this);
+    connect(timer9, &QTimer::timeout, this, &CanHandler::sendBatteryStatus);
+    timer9->start(1000);
+
 }
 
 void CanHandler::transformCanPackage(const QCanBusFrame &frame, QByteArray &packedFrame)
@@ -390,6 +398,88 @@ void CanHandler::sendChargerInCurrent()
     int counter = 0;
 
     if(areWeSendingChargerInCurrent){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
+
+}
+
+void CanHandler::sendPortMotorStatus()
+{
+
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":13,"iid":0,"v":%1})";
+
+    QString modified_string = string_message.arg(portMotorStatus);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingPortMotorStatus){
+
+        for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+            QCanBusFrame frame;
+            frame.setFrameId(0x0000115C);
+            QByteArray payload;
+            payload.resize(8);
+
+            for(int y = 0; y < 8; y++){
+
+                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+            }
+
+            frame.setPayload(payload);
+
+            sendToCL2000(frame);
+            canDevice -> writeFrame(frame);
+
+        }
+
+    }
+
+}
+
+void CanHandler::sendBatteryStatus()
+{
+
+    QString string_message = R"({"cmd":"svv","sid":1028,"vid":14,"iid":0,"v":%1})";
+
+    QString modified_string = string_message.arg(batteryStatus);
+
+    QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    Encoder encoder1{modified_string, 0x19};
+
+    vectorToSendToCAN = encoder1.createPayloadArray();
+
+    int counter = 0;
+
+    if(areWeSendingBatteryStatus){
 
         for(int i = 0; i < vectorToSendToCAN.size(); i++){
 
