@@ -81,6 +81,62 @@ private slots:
 
     void on_radioButton_17_clicked();
 
+    void on_pushButton_20_clicked();
+
+    void on_radioButton_18_clicked();
+
+    void on_radioButton_19_clicked();
+
+    void on_radioButton_20_clicked();
+
+    void on_radioButton_21_clicked();
+
+    void on_pushButton_21_clicked();
+
+    void on_radioButton_26_clicked();
+
+    void on_radioButton_27_clicked();
+
+    void on_radioButton_28_clicked();
+
+    void on_radioButton_29_clicked();
+
+    void on_pushButton_22_clicked();
+
+    void on_speedSlider_23_sliderMoved(int position);
+
+    void on_pushButton_23_clicked();
+
+    void on_speedSlider_24_sliderMoved(int position);
+
+    void on_pushButton_24_clicked();
+
+    void on_radioButton_30_clicked();
+
+    void on_radioButton_31_clicked();
+
+    void on_radioButton_32_clicked();
+
+    void on_radioButton_33_clicked();
+
+    void on_pushButton_25_clicked();
+
+    void on_textEdit_textChanged();
+
+    void on_pushButton_26_clicked();
+
+    void on_textEdit_2_textChanged();
+
+    void on_pushButton_27_clicked();
+
+    void on_textEdit_3_textChanged();
+
+    void on_pushButton_28_clicked();
+
+    void on_pushButton_29_clicked();
+
+    void on_pushButton_30_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -93,6 +149,14 @@ private:
     bool areWeSendingInCurrent{false};
     bool areWeSendingPortMotorStatus{false};
     bool areWeSendingBatteryStatus{false};
+    bool areWeSendingChargerStatus{false};
+    bool areWeSendingStbMotorStatus{false};
+    bool areWeSendingDCDCVoltage{false};
+    bool areWeSendingDCDCCurrent{false};
+    bool areWeSendingDCDCStatus{false};
+    bool areWeSendingMaxPortPower{false};
+    bool areWeSendingFullChargeBattery{false};
+    bool areWeSendingShoreLimit{false};
 
     CanHandler* m_CanHandler;
 };

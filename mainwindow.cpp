@@ -39,6 +39,30 @@ MainWindow::MainWindow(QWidget *parent)
     ui -> PortBatInfoLabel_10 -> setText("Not sending messages");
     ui -> PortBatInfoLabel_10 -> setStyleSheet("QLabel { background-color : red; }");
 
+    ui -> PortBatInfoLabel_11 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_11 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_12 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_12 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_13 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_13 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_14 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_14 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_15 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_15 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_16 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_16 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_17 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_17 -> setStyleSheet("QLabel { background-color : red; }");
+
+    ui -> PortBatInfoLabel_18 -> setText("Not sending messages");
+    ui -> PortBatInfoLabel_18 -> setStyleSheet("QLabel { background-color : red; }");
+
 }
 
 MainWindow::~MainWindow()
@@ -389,6 +413,326 @@ void MainWindow::on_radioButton_17_clicked()
 {
 
     m_CanHandler -> setBatteryStatus("3");
+
+}
+
+
+void MainWindow::on_pushButton_20_clicked()
+{
+
+    m_CanHandler -> toggleChargerS();
+
+    if(!areWeSendingChargerStatus){
+        areWeSendingChargerStatus = true;
+        ui -> PortBatInfoLabel_11 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_11 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingChargerStatus = false;
+        ui -> PortBatInfoLabel_11 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_11 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_radioButton_18_clicked()
+{
+
+    m_CanHandler -> setChargerStatus("0");
+
+}
+
+
+void MainWindow::on_radioButton_19_clicked()
+{
+
+    m_CanHandler -> setChargerStatus("1");
+
+}
+
+
+void MainWindow::on_radioButton_20_clicked()
+{
+
+    m_CanHandler -> setChargerStatus("2");
+
+}
+
+
+void MainWindow::on_radioButton_21_clicked()
+{
+
+    m_CanHandler -> setChargerStatus("3");
+
+}
+
+
+void MainWindow::on_pushButton_21_clicked()
+{
+
+    m_CanHandler -> toggleStbMotor();
+
+    if(!areWeSendingStbMotorStatus){
+        areWeSendingStbMotorStatus = true;
+        ui -> PortBatInfoLabel_12 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_12 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingStbMotorStatus = false;
+        ui -> PortBatInfoLabel_12 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_12 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_radioButton_26_clicked()
+{
+
+    m_CanHandler -> setStbMotorStatus("0");
+
+}
+
+
+void MainWindow::on_radioButton_27_clicked()
+{
+
+    m_CanHandler -> setStbMotorStatus("1");
+
+}
+
+
+
+void MainWindow::on_radioButton_28_clicked()
+{
+
+    m_CanHandler -> setStbMotorStatus("2");
+
+}
+
+
+void MainWindow::on_radioButton_29_clicked()
+{
+
+    m_CanHandler -> setStbMotorStatus("3");
+
+}
+
+
+void MainWindow::on_pushButton_22_clicked()
+{
+
+    m_CanHandler -> toggleDCDCVoltage();
+
+    if(!areWeSendingDCDCVoltage){
+        areWeSendingDCDCVoltage = true;
+        ui -> PortBatInfoLabel_13 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_13 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingDCDCVoltage = false;
+        ui -> PortBatInfoLabel_13 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_13 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_speedSlider_23_sliderMoved(int position)
+{
+
+    m_CanHandler -> setDCDCVoltage(QString::number(position));
+
+}
+
+
+void MainWindow::on_pushButton_23_clicked()
+{
+
+    m_CanHandler -> toggleDCDCCurrent();
+
+    if(!areWeSendingDCDCCurrent){
+        areWeSendingDCDCCurrent = true;
+        ui -> PortBatInfoLabel_14 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_14 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingDCDCCurrent = false;
+        ui -> PortBatInfoLabel_14 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_14 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+
+}
+
+
+void MainWindow::on_speedSlider_24_sliderMoved(int position)
+{
+
+    m_CanHandler -> setDCDCCurrent(QString::number(position));
+
+}
+
+
+void MainWindow::on_pushButton_24_clicked()
+{
+
+    m_CanHandler -> toggleDCDCS();
+
+    if(!areWeSendingDCDCStatus){
+        areWeSendingDCDCStatus = true;
+        ui -> PortBatInfoLabel_15 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_15 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingDCDCStatus = false;
+        ui -> PortBatInfoLabel_15 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_15 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_radioButton_30_clicked()
+{
+
+    m_CanHandler -> setDCDCStatus("0");
+
+}
+
+
+void MainWindow::on_radioButton_31_clicked()
+{
+
+    m_CanHandler -> setDCDCStatus("1");
+
+}
+
+void MainWindow::on_radioButton_32_clicked()
+{
+
+    m_CanHandler -> setDCDCStatus("2");
+
+}
+
+void MainWindow::on_radioButton_33_clicked()
+{
+
+    m_CanHandler -> setDCDCStatus("3");
+
+}
+
+
+void MainWindow::on_pushButton_25_clicked()
+{
+
+    m_CanHandler -> toggleMaxPortPower();
+
+    if(!areWeSendingMaxPortPower){
+        areWeSendingMaxPortPower = true;
+        ui -> PortBatInfoLabel_16 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_16 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingMaxPortPower = false;
+        ui -> PortBatInfoLabel_16 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_16 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_textEdit_textChanged()
+{
+
+    m_CanHandler -> setMaxPortPower(ui -> textEdit -> toPlainText());
+
+}
+
+
+void MainWindow::on_pushButton_26_clicked()
+{
+
+    m_CanHandler -> toggleFullCharBatt();
+
+    if(!areWeSendingFullChargeBattery){
+        areWeSendingFullChargeBattery = true;
+        ui -> PortBatInfoLabel_17 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_17 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingFullChargeBattery = false;
+        ui -> PortBatInfoLabel_17 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_17 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_textEdit_2_textChanged()
+{
+
+    m_CanHandler -> setFullChargeBattery(ui -> textEdit_2 -> toPlainText());
+
+}
+
+
+void MainWindow::on_pushButton_27_clicked()
+{
+
+    m_CanHandler -> toggleShoreLimit();
+
+    if(!areWeSendingShoreLimit){
+        areWeSendingShoreLimit = true;
+        ui -> PortBatInfoLabel_18 -> setText("Sending messages");
+        ui -> PortBatInfoLabel_18 -> setStyleSheet("QLabel { background-color : green; }");
+
+    }else{
+        areWeSendingShoreLimit = false;
+        ui -> PortBatInfoLabel_18 -> setText("Not sending messages");
+        ui -> PortBatInfoLabel_18 -> setStyleSheet("QLabel { background-color : red; }");
+
+    }
+
+}
+
+
+void MainWindow::on_textEdit_3_textChanged()
+{
+
+    m_CanHandler -> setShoreLimit(ui -> textEdit_3 -> toPlainText());
+
+}
+
+
+void MainWindow::on_pushButton_28_clicked()
+{
+
+    m_CanHandler -> sendEnableValue();
+
+}
+
+
+void MainWindow::on_pushButton_29_clicked()
+{
+
+    m_CanHandler -> sendEnableFullChargeMaintenance();
+
+}
+
+
+void MainWindow::on_pushButton_30_clicked()
+{
+
+    m_CanHandler -> sendEnableMaintenance();
 
 }
 
