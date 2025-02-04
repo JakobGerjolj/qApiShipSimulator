@@ -79,6 +79,8 @@ public:
 
     void setShoreLimit(QString limit){ shoreLimit = limit; }
 
+    void sendNMEA2KQMessage(QByteArray data);
+
     void toggleHiCellVoltageSend();
     void toggleLoCellVoltageSend();
     void toggleChargerTempSend();

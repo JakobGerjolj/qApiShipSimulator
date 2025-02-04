@@ -63,6 +63,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui -> PortBatInfoLabel_18 -> setText("Not sending messages");
     ui -> PortBatInfoLabel_18 -> setStyleSheet("QLabel { background-color : red; }");
 
+    ui -> textEdit_4 -> setText("26000000");
+
+    ui -> textEdit_5 -> setText("26000000");
+
+    ui -> textEdit_6 -> setText("26000000");
+
+    ui -> textEdit_7 -> setText("26000000");
+
+    ui -> textEdit_8 -> setText("26000000");
+
+    ui -> textEdit_9 -> setText("32");
+
+    ui -> textEdit_10 -> setText("16");
+
 }
 
 MainWindow::~MainWindow()
@@ -733,6 +747,144 @@ void MainWindow::on_pushButton_30_clicked()
 {
 
     m_CanHandler -> sendEnableMaintenance();
+
+}
+
+
+void MainWindow::on_pushButton_31_clicked()
+{
+
+    QString example = R"({"cmd":"set-setting-value","gid":1028,"sid":1,"v":32,"token":"rD6oy58WmTSc/5nSq1jxdA=="})";
+
+    QByteArray initialBytes;
+    initialBytes.append("\x30\x80\x83\x01");
+
+    initialBytes.append(static_cast<char>(0x00));
+
+    initialBytes.append(example.toUtf8());
+
+    // QByteArray
+
+    m_CanHandler -> sendNMEA2KQMessage(initialBytes);
+
+}
+
+
+void MainWindow::on_pushButton_32_clicked()//Full charge battery set interval
+{
+
+    QString fromTextArea = ui -> textEdit_4 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":5,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
+
+void MainWindow::on_pushButton_33_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_5 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":6,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
+
+void MainWindow::on_pushButton_34_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_6 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":7,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
+
+void MainWindow::on_pushButton_35_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_7 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":8,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
+
+void MainWindow::on_pushButton_36_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_8 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":9,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
+
+void MainWindow::on_pushButton_37_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_9 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":1,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
+
+void MainWindow::on_pushButton_38_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_10 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":1,"iid":0,"v":%1})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
 
 }
 

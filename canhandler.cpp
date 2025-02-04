@@ -985,6 +985,55 @@ void CanHandler::sendEnableMaintenance()
 
 }
 
+void CanHandler::sendNMEA2KQMessage(QByteArray data)
+{
+
+    const int FIRST_PAYLOAD_SIZE = 6;
+    const int SUBSEQUENT_PAYLOAD_SIZE = 7;
+
+    qDebug() << "\nData size: "<<data.size()<<"\n";
+    int totalSize = static_cast<uint8_t>(data.size());
+    int remainingSize = totalSize - FIRST_PAYLOAD_SIZE;
+    int numSubsequentFrames = (remainingSize + SUBSEQUENT_PAYLOAD_SIZE - 1) / SUBSEQUENT_PAYLOAD_SIZE; // Ceiling division
+
+    // Handle the first 6 bytes
+    QByteArray firstPayload(FIRST_PAYLOAD_SIZE + 2, 0); // 6 bytes + 2 for headers
+    firstPayload[0] = 0x00 | 0x00; // Example header for the first frame
+    firstPayload[1] = totalSize; // Example header value
+    for (int i = 0; i < FIRST_PAYLOAD_SIZE; ++i) {
+        firstPayload[i + 2] = data[i];
+    }
+
+    QCanBusFrame firstFrame;
+    firstFrame.setFrameId(0x14FFA000);
+    firstFrame.setPayload(firstPayload);
+    sendToCL2000(firstFrame); // Placeholder for actual sending logic
+    //qDebug() << "Sent first frame with payload:" << firstPayload.toHex();
+
+    // Handle the remaining bytes in chunks of 7 bytes
+    for (int i = 0; i < numSubsequentFrames; ++i) {
+        QCanBusFrame frame;
+        frame.setFrameId(0x14FFA000);
+        QByteArray payload(SUBSEQUENT_PAYLOAD_SIZE + 1, 0); // 7 bytes + 1 for header
+
+        int offset = FIRST_PAYLOAD_SIZE + i * SUBSEQUENT_PAYLOAD_SIZE;
+        int chunkSize = qMin(SUBSEQUENT_PAYLOAD_SIZE, totalSize - offset);
+
+        payload[0] = 0x00 | (((i + 1)) & 0x0F); // Example header for subsequent frames
+        for (int j = 0; j < chunkSize; ++j) {
+            payload[j + 1] = data[offset + j];
+        }
+
+        frame.setPayload(payload);
+        sendToCL2000(frame); // Placeholder for actual sending logic
+        //qDebug() << "Sent subsequent frame" << i << "with payload:" << payload.toHex();
+
+
+    }
+
+
+}
+
 
 void CanHandler::toggleLoCellVoltageSend()
 {
