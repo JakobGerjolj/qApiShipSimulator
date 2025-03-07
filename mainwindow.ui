@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1417</width>
-    <height>738</height>
+    <width>1609</width>
+    <height>947</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1231,6 +1231,25 @@
       <string>FAULT</string>
      </property>
     </widget>
+    <widget class="QFrame" name="frame_8">
+     <property name="geometry">
+      <rect>
+       <x>-190</x>
+       <y>150</y>
+       <width>391</width>
+       <height>421</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="PortBatInfoLabel_15">
     <property name="geometry">
@@ -1280,8 +1299,8 @@
    <widget class="QLabel" name="label_49">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>210</y>
+      <x>670</x>
+      <y>280</y>
       <width>221</width>
       <height>31</height>
      </rect>
@@ -1312,8 +1331,8 @@
    <widget class="QLabel" name="PortBatInfoLabel_16">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>220</y>
+      <x>890</x>
+      <y>290</y>
       <width>151</width>
       <height>20</height>
      </rect>
@@ -1325,8 +1344,8 @@
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>250</y>
+      <x>760</x>
+      <y>320</y>
       <width>104</width>
       <height>31</height>
      </rect>
@@ -1338,8 +1357,8 @@
    <widget class="QLabel" name="label_50">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>310</y>
+      <x>660</x>
+      <y>380</y>
       <width>341</width>
       <height>31</height>
      </rect>
@@ -1357,8 +1376,8 @@
    <widget class="QLabel" name="PortBatInfoLabel_17">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>340</y>
+      <x>870</x>
+      <y>410</y>
       <width>151</width>
       <height>20</height>
      </rect>
@@ -1370,8 +1389,8 @@
    <widget class="QPushButton" name="pushButton_26">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>290</y>
+      <x>880</x>
+      <y>360</y>
       <width>91</width>
       <height>24</height>
      </rect>
@@ -1383,8 +1402,8 @@
    <widget class="QTextEdit" name="textEdit_2">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>350</y>
+      <x>750</x>
+      <y>420</y>
       <width>104</width>
       <height>31</height>
      </rect>
@@ -1396,8 +1415,8 @@
    <widget class="QTextEdit" name="textEdit_3">
     <property name="geometry">
      <rect>
-      <x>740</x>
-      <y>460</y>
+      <x>790</x>
+      <y>530</y>
       <width>104</width>
       <height>31</height>
      </rect>
@@ -1409,8 +1428,8 @@
    <widget class="QLabel" name="label_51">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>410</y>
+      <x>700</x>
+      <y>480</y>
       <width>341</width>
       <height>31</height>
      </rect>
@@ -1428,8 +1447,8 @@
    <widget class="QPushButton" name="pushButton_27">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>390</y>
+      <x>860</x>
+      <y>460</y>
       <width>91</width>
       <height>24</height>
      </rect>
@@ -1441,8 +1460,8 @@
    <widget class="QLabel" name="PortBatInfoLabel_18">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>440</y>
+      <x>890</x>
+      <y>510</y>
       <width>151</width>
       <height>20</height>
      </rect>
@@ -1454,8 +1473,8 @@
    <widget class="QLabel" name="label_52">
     <property name="geometry">
      <rect>
-      <x>690</x>
-      <y>510</y>
+      <x>670</x>
+      <y>220</y>
       <width>331</width>
       <height>31</height>
      </rect>
@@ -1473,8 +1492,8 @@
    <widget class="QPushButton" name="pushButton_28">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>540</y>
+      <x>840</x>
+      <y>250</y>
       <width>91</width>
       <height>24</height>
      </rect>
@@ -1875,13 +1894,90 @@
      <string>SEND</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_39">
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>600</y>
+      <width>91</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SEND</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_62">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>560</y>
+      <width>371</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>ENABLE SHORE CURRENT LIMIT</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_11">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>680</y>
+      <width>104</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>40000</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_63">
+    <property name="geometry">
+     <rect>
+      <x>1080</x>
+      <y>640</y>
+      <width>341</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>SET MAX POWER</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_40">
+    <property name="geometry">
+     <rect>
+      <x>1240</x>
+      <y>680</y>
+      <width>91</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SEND</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1417</width>
+     <width>1609</width>
      <height>21</height>
     </rect>
    </property>

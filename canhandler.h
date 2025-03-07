@@ -35,7 +35,9 @@ public:
 
     uint16_t calculateCRC16(QByteArray data, CRC16Type crc16Type = CRC16Type::CRC_16_IBM);
 
-    void sendEnableValue();
+    void sendEnableValue();//For stop charge
+
+    void sendEnableShoreCurrentLimit();
 
     void sendEnableFullChargeMaintenance();
 

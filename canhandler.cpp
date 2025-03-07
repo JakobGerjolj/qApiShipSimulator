@@ -166,164 +166,218 @@ void CanHandler::sendHiCellVoltage()
 
     //{"cmd":"svv","sid":1028,"vid":10,"v":1000} should be high cell voltage
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":10,"v":%1})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":10,"v":%1})";
 
-    QString modified_string = string_message.arg(highCellVoltage);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":10,"v":%1})").arg(highCellVoltage);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendinHiCellVoltage){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(highCellVoltage);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendinHiCellVoltage){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendLoCellVoltage()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":9,"v":%1})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":9,"v":%1})";
 
-    QString modified_string = string_message.arg(lowCellVoltage);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":9,"v":%1})").arg(lowCellVoltage);
 
-    Encoder encoder1{modified_string, 0x19};
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
 
     if(areWeSendingLoCellVoltage){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(lowCellVoltage);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingLoCellVoltage){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendChargerTemp()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":4,"v":%1})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":4,"v":%1})";
 
-    QString modified_string = string_message.arg(chargerTemp);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":4,"v":%1})").arg(chargerTemp);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingChargerTemp){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(chargerTemp);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingChargerTemp){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendChargerVoltage()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":5,"v":%1})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":5,"v":%1})";
 
-    QString modified_string = string_message.arg(chargerVoltage);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":5,"v":%1})").arg(chargerVoltage);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingChargerVoltage){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(chargerVoltage);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingChargerVoltage){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
@@ -333,125 +387,187 @@ void CanHandler::sendChargerVoltage()
 void CanHandler::sendChargerCurrent()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":6,"v":%1})";
+    // QString string_message = R"({"cmd":"svv","sid":1028,"vid":6,"v":%1})";
 
-    QString modified_string = string_message.arg(chargerCurrent);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":6,"v":%1})").arg(chargerCurrent);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
 
     if(areWeSendingChargerCurrent){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(chargerCurrent);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingChargerCurrent){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendChargerInVoltage()
 {
 
+    QString Qmessage;
+
     //{"cmd":"svv","sid":1,"vid":1,"iid":0,"v":1234} example of data with instance
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})";
 
-    QString modified_string = string_message.arg(chargerInVoltageInstance).arg(chargerInVoltage);
+    if(chargerInVoltage.toInt() == 2000){
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
+        Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})").arg(chargerInVoltageInstance).arg("FFFF");
 
-    Encoder encoder1{modified_string, 0x19};
+    }else{
 
-    vectorToSendToCAN = encoder1.createPayloadArray();
+        Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})").arg(chargerInVoltageInstance).arg(chargerInVoltage);
 
-    int counter = 0;
+    }
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingChargerInVoltage){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+
+    // QString modified_string = string_message.arg(chargerInVoltageInstance).arg(chargerInVoltage);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingChargerInVoltage){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendChargerInCurrent()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":8,"iid":%1,"v":%2})";
+    QString Qmessage;
 
-    QString modified_string = string_message.arg(chargerInCurrentInstance).arg(chargerInCurrent);
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":8,"iid":%1,"v":%2})";
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
+    if(chargerInCurrent.toInt() == 2000){
 
-    Encoder encoder1{modified_string, 0x19};
+        Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":8,"iid":%1,"v":%2})").arg(chargerInCurrentInstance).arg("32767");
 
-    vectorToSendToCAN = encoder1.createPayloadArray();
+    }else{
 
-    int counter = 0;
+        Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":8,"iid":%1,"v":%2})").arg(chargerInCurrentInstance).arg(chargerInCurrent);
+
+    }
+
+    //QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":8,"iid":%1,"v":%2})").arg(chargerInCurrentInstance).arg(chargerInCurrent);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingChargerInCurrent){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(chargerInCurrentInstance).arg(chargerInCurrent);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingChargerInCurrent){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
@@ -460,80 +576,106 @@ void CanHandler::sendPortMotorStatus()
 
     QString string_message = R"({"cmd":"svv","sid":1028,"vid":13,"iid":0,"v":%1})";
 
-    QString modified_string = string_message.arg(portMotorStatus);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":13,"iid":0,"v":%1})").arg(portMotorStatus);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingPortMotorStatus){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(portMotorStatus);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingPortMotorStatus){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendBatteryStatus()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":14,"iid":0,"v":%1})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":14,"iid":0,"v":%1})";
 
-    QString modified_string = string_message.arg(batteryStatus);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":14,"iid":0,"v":%1})").arg(batteryStatus);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingBatteryStatus){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(batteryStatus);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingBatteryStatus){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
@@ -542,39 +684,52 @@ void CanHandler::sendChargerStatus()
 
     QString string_message = R"({"cmd":"svv","sid":1028,"vid":15,"v":%1})";
 
-    QString modified_string = string_message.arg(chargerStatus);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":15,"v":%1})").arg(chargerStatus);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingChargerStatus){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(chargerStatus);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingChargerStatus){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 
 }
@@ -584,80 +739,106 @@ void CanHandler::sendStbMotorStatus()
 
     QString string_message = R"({"cmd":"svv","sid":1028,"vid":13,"iid":1,"v":%1})";
 
-    QString modified_string = string_message.arg(stbMotorStatus);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":13,"iid":1,"v":%1})").arg(stbMotorStatus);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingStbMotorStatus){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(stbMotorStatus);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingStbMotorStatus){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendDCDCVoltage()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":11,"v":%1})";
+   // QString string_message = R"({"cmd":"svv","sid":1028,"vid":11,"v":%1})";
 
-    QString modified_string = string_message.arg(dcdcVoltage);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":11,"v":%1})").arg(dcdcVoltage);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingDCDCVoltage){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(dcdcVoltage);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingDCDCVoltage){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
@@ -667,80 +848,107 @@ void CanHandler::sendDCDCCurrent()
 
     QString string_message = R"({"cmd":"svv","sid":1028,"vid":12,"v":%1})";
 
-    QString modified_string = string_message.arg(dcdcCurrent);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":12,"v":%1})").arg(dcdcCurrent);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
-
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
     if(areWeSendingDCDCCurrent){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(dcdcCurrent);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingDCDCCurrent){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
 void CanHandler::sendDCDCStatus()
 {
 
-    QString string_message = R"({"cmd":"svv","sid":1028,"vid":16,"v":%1})";
+    //QString string_message = R"({"cmd":"svv","sid":1028,"vid":16,"v":%1})";
 
-    QString modified_string = string_message.arg(dcdcStatus);
+    QString Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":16,"v":%1})").arg(dcdcStatus);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
 
-    Encoder encoder1{modified_string, 0x19};
-
-    vectorToSendToCAN = encoder1.createPayloadArray();
-
-    int counter = 0;
 
     if(areWeSendingDCDCStatus){
 
-        for(int i = 0; i < vectorToSendToCAN.size(); i++){
-
-            QCanBusFrame frame;
-            frame.setFrameId(0x0000115C);
-            QByteArray payload;
-            payload.resize(8);
-
-            for(int y = 0; y < 8; y++){
-
-                payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
-
-            }
-
-            frame.setPayload(payload);
-
-            sendToCL2000(frame);
-            canDevice -> writeFrame(frame);
-
-        }
+        sendNMEA2KQMessage(QPreamble);
 
     }
+
+    // QString modified_string = string_message.arg(dcdcStatus);
+
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
+
+    // Encoder encoder1{modified_string, 0x19};
+
+    // vectorToSendToCAN = encoder1.createPayloadArray();
+
+    // int counter = 0;
+
+    // if(areWeSendingDCDCStatus){
+
+    //     for(int i = 0; i < vectorToSendToCAN.size(); i++){
+
+    //         QCanBusFrame frame;
+    //         frame.setFrameId(0x0000115C);
+    //         QByteArray payload;
+    //         payload.resize(8);
+
+    //         for(int y = 0; y < 8; y++){
+
+    //             payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+
+    //         }
+
+    //         frame.setPayload(payload);
+
+    //         sendToCL2000(frame);
+    //         canDevice -> writeFrame(frame);
+
+    //     }
+
+    // }
 
 }
 
@@ -874,39 +1082,64 @@ void CanHandler::sendShoreLimit()
 void CanHandler::sendEnableValue()
 {
 
-    QString string_message = R"({"cmd":"enable-value","enable":true,"sid":7,"vid":12})";
+   // QString string_message = R"({"cmd":"enable-value","enable":true,"sid":7,"vid":12})";
+
+    QString Qmessage = QString(R"({"cmd":"enable-value","enable":true,"sid":7,"vid":12})");
+
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    sendNMEA2KQMessage(QPreamble);
 
     //QString modified_string = string_message.arg(shoreLimit);
 
-    QVector<QVector<uint8_t>> vectorToSendToCAN;
+    // QVector<QVector<uint8_t>> vectorToSendToCAN;
 
-    Encoder encoder1{string_message, 0x19};
+    // Encoder encoder1{string_message, 0x19};
 
-    vectorToSendToCAN = encoder1.createPayloadArray();
+    // vectorToSendToCAN = encoder1.createPayloadArray();
 
-    int counter = 0;
+    // int counter = 0;
 
-    for(int i = 0; i < vectorToSendToCAN.size(); i++){
+    // for(int i = 0; i < vectorToSendToCAN.size(); i++){
 
-        QCanBusFrame frame;
-        frame.setFrameId(0x0000115C);
-        QByteArray payload;
-        payload.resize(8);
+    //     QCanBusFrame frame;
+    //     frame.setFrameId(0x0000115C);
+    //     QByteArray payload;
+    //     payload.resize(8);
 
-        for(int y = 0; y < 8; y++){
+    //     for(int y = 0; y < 8; y++){
 
-            payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
+    //         payload[y] = static_cast<char>(vectorToSendToCAN[i][y]);
 
-        }
+    //     }
 
-        frame.setPayload(payload);
+    //     frame.setPayload(payload);
 
-        sendToCL2000(frame);
-        canDevice -> writeFrame(frame);
+    //     sendToCL2000(frame);
+    //     canDevice -> writeFrame(frame);
 
-    }
+    // }
 
 
+
+}
+
+void CanHandler::sendEnableShoreCurrentLimit()
+{
+
+    QString Qmessage = QString(R"({"cmd":"enable-value","enable":true,"sid":1028,"vid":8})");
+
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    sendNMEA2KQMessage(QPreamble);
 
 }
 
@@ -1005,7 +1238,7 @@ void CanHandler::sendNMEA2KQMessage(QByteArray data)
     }
 
     QCanBusFrame firstFrame;
-    firstFrame.setFrameId(0x14FFA000);
+    firstFrame.setFrameId(0x0DF0D511);
     firstFrame.setPayload(firstPayload);
     sendToCL2000(firstFrame); // Placeholder for actual sending logic
     //qDebug() << "Sent first frame with payload:" << firstPayload.toHex();
@@ -1013,7 +1246,7 @@ void CanHandler::sendNMEA2KQMessage(QByteArray data)
     // Handle the remaining bytes in chunks of 7 bytes
     for (int i = 0; i < numSubsequentFrames; ++i) {
         QCanBusFrame frame;
-        frame.setFrameId(0x14FFA000);
+        frame.setFrameId(0x0DF0D511);
         QByteArray payload(SUBSEQUENT_PAYLOAD_SIZE + 1, 0); // 7 bytes + 1 for header
 
         int offset = FIRST_PAYLOAD_SIZE + i * SUBSEQUENT_PAYLOAD_SIZE;

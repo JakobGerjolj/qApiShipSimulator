@@ -888,3 +888,28 @@ void MainWindow::on_pushButton_38_clicked()
 
 }
 
+
+void MainWindow::on_pushButton_39_clicked()
+{
+
+    m_CanHandler -> sendEnableShoreCurrentLimit();
+
+}
+
+
+void MainWindow::on_pushButton_40_clicked()
+{
+
+    QString fromTextArea = ui -> textEdit_11 -> toPlainText();
+
+    QString Qmessage = QString(R"({"cmd":"set-setting-value","gid":1028,"sid":4,"v":%1,"token":"rD6oy58WmTSc/5nSq1jxdA=="})").arg(fromTextArea);
+
+    QByteArray QPreamble;
+    QPreamble.append("\x30\x80\x83\x01");
+    QPreamble.append(static_cast<char>(0x00));
+    QPreamble.append(Qmessage.toUtf8());
+
+    m_CanHandler -> sendNMEA2KQMessage(QPreamble);
+
+}
+
