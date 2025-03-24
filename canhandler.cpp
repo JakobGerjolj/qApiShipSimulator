@@ -450,7 +450,7 @@ void CanHandler::sendChargerInVoltage()
 
     if(chargerInVoltage.toInt() == 2000){
 
-        Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})").arg(chargerInVoltageInstance).arg("FFFF");
+        Qmessage = QString(R"({"cmd":"svv","sid":1028,"vid":7,"iid":%1,"v":%2})").arg(chargerInVoltageInstance).arg("65535");
 
     }else{
 
@@ -1130,8 +1130,8 @@ void CanHandler::sendEnableValue()
 
 void CanHandler::sendEnableShoreCurrentLimit()
 {
-
-    QString Qmessage = QString(R"({"cmd":"enable-value","enable":true,"sid":1028,"vid":8})");
+//{"cmd":"enable-value","enable":true,"sid":7,"vid":12}
+    QString Qmessage = QString(R"({"cmd":"enable-value","enable":true,"sid":1028,"vid":1,"iid":0})");
 
 
     QByteArray QPreamble;
